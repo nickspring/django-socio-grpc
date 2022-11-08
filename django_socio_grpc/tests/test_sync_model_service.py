@@ -94,7 +94,7 @@ class TestSyncModelService(TestCase):
         grpc_stub = self.fake_grpc.get_fake_stub(UnitTestModelControllerStub)
 
         request = fakeapp_pb2.UnitTestModelPartialUpdateRequest(
-            id=instance.id, _partial_update_fields=["title"], title="newTitle"
+            id=instance.id, partial_update_fields=["title"], title="newTitle"
         )
         response = grpc_stub.PartialUpdate(request=request)
 

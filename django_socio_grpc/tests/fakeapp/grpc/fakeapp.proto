@@ -253,7 +253,7 @@ message RelatedFieldModelPartialUpdateRequest {
     string uuid = 1;
     repeated ManyManyModelRequest many_many_obj = 2;
     string custom_field_name = 3;
-    repeated string _partial_update_fields = 4;
+    repeated string partial_update_fields = 4;
     string foreign = 5;
     repeated string many_many = 6;
 }
@@ -296,7 +296,7 @@ message SpecialFieldsModelListResponse {
 
 message SpecialFieldsModelPartialUpdateRequest {
     string uuid = 1;
-    repeated string _partial_update_fields = 2;
+    repeated string partial_update_fields = 2;
     google.protobuf.Struct meta_datas = 3;
     repeated int32 list_datas = 4;
 }
@@ -348,7 +348,7 @@ message UnitTestModelPartialUpdateRequest {
     int32 id = 1;
     string title = 2;
     string text = 3;
-    repeated string _partial_update_fields = 4;
+    repeated string partial_update_fields = 4;
 }
 
 message UnitTestModelRequest {

@@ -218,7 +218,7 @@ class _CodeWriter:
 
     def write_line(self, line):
         for i in range(self._indent):
-            self.buffer.write("    ")
+            self.buffer.write("  ")
         print(line, file=self.buffer)
 
     def get_code(self):

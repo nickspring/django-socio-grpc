@@ -239,7 +239,7 @@ def _get_partial_update_request(service):
     serializer_class = service.get_serializer_class()
 
     class PartialUpdateRequest(serializer_class):
-        _partial_update_fields = serializers.ListField(child=serializers.CharField())
+        partial_update_fields = serializers.ListField(child=serializers.CharField())
 
         class Meta(serializer_class.Meta):
             ...
@@ -247,7 +247,7 @@ def _get_partial_update_request(service):
     # INFO - L.G. - 19/06/2022 - extra field needs to be appended to
     # the serializer.
     if (fields := serializer_class.Meta.fields) and not isinstance(fields, str):
-        PartialUpdateRequest.Meta.fields = (*fields, "_partial_update_fields")
+        PartialUpdateRequest.Meta.fields = (*fields, "partial_update_fields")
 
     return PartialUpdateRequest
 
@@ -264,12 +264,12 @@ class PartialUpdateModelMixin(GRPCActionMixin):
         """
         Partial update a model instance.
 
-        Performs a partial update on the given `_partial_update_fields`.
+        Performs a partial update on the given `partial_update_fields`.
         """
 
         content = message_to_dict(request)
 
-        data = {k: v for k, v in content.items() if k in request._partial_update_fields}
+        data = {k: v for k, v in content.items() if k in request.partial_update_fields}
 
         instance = self.get_object()
 
