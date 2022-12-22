@@ -22,12 +22,14 @@ class RegistryToProtoGenerator:
         project_name: str,
         verbose=0,
         only_messages=None,
+        do_not_use_package=False,
     ):
         self.registry_instance = registry_instance
         self.project_name = project_name
         self.verbose = verbose if verbose is not None else 0
         self.only_messages = only_messages if only_messages is not None else []
         self.current_message = ""
+        self.do_not_use_package = do_not_use_package
 
     def print(self, message, verbose_level=0):
         # INFO - AM - 07/01/2022 - This is used to debug only one message. This is manual code.
@@ -53,8 +55,9 @@ class RegistryToProtoGenerator:
         self._writer = _CodeWriter()
 
         self._writer.write_line('syntax = "proto3";')
-        self._writer.write_line("")
-        self._writer.write_line(f"package {self.project_name}.{app_name};")
+        if not self.do_not_use_package:
+            self._writer.write_line("")
+            self._writer.write_line(f"package {self.project_name}.{app_name};")
         self._writer.write_line("")
         self._writer.write_line("IMPORT_PLACEHOLDER")
         for grpc_controller_name, grpc_methods in sorted(

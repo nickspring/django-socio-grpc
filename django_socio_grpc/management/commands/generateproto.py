@@ -44,6 +44,12 @@ class Command(BaseCommand):
             type=int,
             help="Number from 1 to 4 indicating the verbose level of the generation",
         )
+        parser.add_argument(
+            "--do-not-use-package",
+            "-nop",
+            action="store_true",
+            help="Do not generated package line in proto file",
+        )
 
     def handle(self, *args, **options):
 
@@ -71,6 +77,7 @@ class Command(BaseCommand):
             registry_instance=registry_instance,
             project_name=self.project_name,
             verbose=options["custom_verbose"],
+            do_not_use_package=options["do_not_use_package"],
         )
 
         # ------------------------------------------------------------
